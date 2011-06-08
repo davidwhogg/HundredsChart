@@ -2,7 +2,7 @@
 RM = /bin/rm -fv
 PDFLATEX = pdflatex
 
-all: against_school.pdf
+all: against_school.pdf hundreds_chart.pdf
 
 against_school.pdf: *.tex
 
