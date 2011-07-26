@@ -1,3 +1,10 @@
+# Copyright 2011 David W. Hogg (NYU).
+# All rights reserved.
+
+# to-do:
+# ------
+# - implement "swtich" that takes a list of numbers and switches them (think 12 -> 112 or the 41 <-> 14 swap)
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
