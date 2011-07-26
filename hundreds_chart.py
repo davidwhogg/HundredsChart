@@ -129,6 +129,7 @@ def savefig(fn):
     return None
 
 def main():
+    # charts used in document so far
     hundreds_chart(index=1, zeropad=False)
     savefig('%s_standard.%s' % (prefix, suffix))
     hundreds_chart(zeropad=False, skipzero=True)
@@ -139,16 +140,18 @@ def main():
     savefig('%s_transpose_skipzero.%s' % (prefix, suffix))
     hundreds_chart()
     savefig('%s_default.%s' % (prefix, suffix))
-    hundreds_chart(zeropad=False)
-    savefig('%s_nzp.%s' % (prefix, suffix))
-    hundreds_chart(index=1, zeropad=False)
-    savefig('%s_2x2.%s' % (prefix, suffix))
     hundreds_chart(chartbase=2, numberbase=2)
     savefig('%s_2x2_base2.%s' % (prefix, suffix))
     hundreds_chart(chartbase=3, numberbase=3)
     savefig('%s_3x3_base3.%s' % (prefix, suffix))
     hundreds_chart(chartbase=4, numberbase=4)
     savefig('%s_4x4_base4.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=16, numberbase=16)
+    savefig('%s_16x16_base16.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=7)
+    savefig('%s_7x7_base10.%s' % (prefix, suffix))
+
+    # charts not yet used in document
     hundreds_chart(zeroear=True)
     savefig('%s_ze.%s' % (prefix, suffix))
     hundreds_chart(zeroear=True, index=1)
