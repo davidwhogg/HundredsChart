@@ -1,9 +1,15 @@
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrow
 import numpy as np
 
 prefix = 'hundreds_chart'
-suffix = 'png'
+suffix = 'pdf'
+if suffix == 'pdf':
+    tweak = -0.03
+else:
+    tweak = +0.03 
 
 def stringy(number, base):
     digit = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -15,7 +21,6 @@ def stringy(number, base):
         return stringy(number / base, base) + stringy(number % base, base)
 
 def draw_number(x, y, label, alpha=1.):
-    tweak = 0.03
     boxalpha = 0.5 * alpha
     plt.plot(x + np.array([-0.5, -0.5, 0.5, 0.5, -0.5]),
              y + np.array([-0.5, 0.5, 0.5, -0.5, -0.5]), 'k-', clip_on=False, alpha=boxalpha)
@@ -28,10 +33,16 @@ def draw_arrow(start, vector, base, index):
                                     ec='none', fc='k', alpha=0.25))
     return None
 
-def draw_number_grid(base, numberbase, index, zeropad, shift=(0, 0), alpha=1.):
+def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=(0, 0), alpha=1.):
     for i in range(base):
         for j in range(base):
-            label = stringy(index + i * base + j, numberbase)
+            if transpose:
+                number = (index + j * base + i)
+            else:
+                number = (index + i * base + j)
+            if skipzero and number == 0:
+                continue
+            label = stringy(number, numberbase)
             if zeropad:
                 if len(label) < 2:
                     label = '0' + label
@@ -40,7 +51,8 @@ def draw_number_grid(base, numberbase, index, zeropad, shift=(0, 0), alpha=1.):
 
 # some keywords may conflict
 def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
-                   zeroear=False, arrow=[], tileright=False):
+                   zeroear=False, arrow=[], tileright=False,
+                   skipzero=False, transpose=False):
     assert((zeroear is False) or (tileright is False))
     base = chartbase
     xlim = np.array([-0.5, base - 0.5])
@@ -63,10 +75,10 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
     ax.set_position([0.01, 0.01, 0.98, 0.98])
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
-    draw_number_grid(base, numberbase, index, zeropad)
+    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose)
     if tileright:
         shift = np.array((10, -1))
-        draw_number_grid(base, numberbase, index, zeropad, shift=shift, alpha=0.5)
+        draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=shift, alpha=0.5)
     zero1 = np.array((0, 0))
     if index == 1:
         zero1 = None
@@ -111,40 +123,48 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
     plt.ylim(ylim)
     return None
 
-def false_main():
-    hundreds_chart()
-    plt.savefig('%s_default.%s' % (prefix, suffix))
-    hundreds_chart(zeropad=False)
-    plt.savefig('%s_nzp.%s' % (prefix, suffix))
-    hundreds_chart(index=1, zeropad=False)
-    plt.savefig('%s_index1.%s' % (prefix, suffix))
-    hundreds_chart(chartbase=2)
-    plt.savefig('%s_2x2.%s' % (prefix, suffix))
-    hundreds_chart(chartbase=2, numberbase=2)
-    plt.savefig('%s_2x2_base2.%s' % (prefix, suffix))
-    hundreds_chart(chartbase=3, numberbase=3)
-    plt.savefig('%s_3x3_base3.%s' % (prefix, suffix))
-    hundreds_chart(chartbase=4, numberbase=4)
-    plt.savefig('%s_4x4_base4.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True)
-    plt.savefig('%s_ze.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True, index=1)
-    plt.savefig('%s_ze_index1.%s' % (prefix, suffix))
-    hundreds_chart(arrow=[(0, 23), (64, 87)])
-    plt.savefig('%s_23.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True, arrow=[(0, 23), (64, 87), (28, 51)])
-    plt.savefig('%s_ze_23.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True, arrow=[(0, 23), (64, 87), (28, 51)], index=1)
-    plt.savefig('%s_ze_index1_23.%s' % (prefix, suffix))
+def savefig(fn):
+    print 'savefig: writing %s' % fn
+    plt.savefig(fn)
     return None
 
 def main():
+    hundreds_chart(index=1, zeropad=False)
+    savefig('%s_standard.%s' % (prefix, suffix))
+    hundreds_chart(zeropad=False, skipzero=True)
+    savefig('%s_skipzero_nzp.%s' % (prefix, suffix))
+    hundreds_chart(skipzero=True)
+    savefig('%s_skipzero.%s' % (prefix, suffix))
+    hundreds_chart(skipzero=True, transpose=True)
+    savefig('%s_transpose_skipzero.%s' % (prefix, suffix))
+    hundreds_chart()
+    savefig('%s_default.%s' % (prefix, suffix))
+    hundreds_chart(zeropad=False)
+    savefig('%s_nzp.%s' % (prefix, suffix))
+    hundreds_chart(index=1, zeropad=False)
+    savefig('%s_2x2.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=2, numberbase=2)
+    savefig('%s_2x2_base2.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=3, numberbase=3)
+    savefig('%s_3x3_base3.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=4, numberbase=4)
+    savefig('%s_4x4_base4.%s' % (prefix, suffix))
+    hundreds_chart(zeroear=True)
+    savefig('%s_ze.%s' % (prefix, suffix))
+    hundreds_chart(zeroear=True, index=1)
+    savefig('%s_ze_index1.%s' % (prefix, suffix))
+    hundreds_chart(arrow=[(0, 23), (64, 87)])
+    savefig('%s_23.%s' % (prefix, suffix))
+    hundreds_chart(zeroear=True, arrow=[(0, 23), (64, 87), (28, 51)])
+    savefig('%s_ze_23.%s' % (prefix, suffix))
+    hundreds_chart(zeroear=True, arrow=[(0, 23), (64, 87), (28, 51)], index=1)
+    savefig('%s_ze_index1_23.%s' % (prefix, suffix))
     hundreds_chart(tileright=True)
-    plt.savefig('%s_tr.%s' % (prefix, suffix))
+    savefig('%s_tr.%s' % (prefix, suffix))
     hundreds_chart(tileright=True, arrow=[(0, 23), (64, 87), (28, 51)])
-    plt.savefig('%s_tr_23.%s' % (prefix, suffix))
+    savefig('%s_tr_23.%s' % (prefix, suffix))
     hundreds_chart(tileright=True, arrow=[(0, 23), (64, 87), (28, 51)], index=1)
-    plt.savefig('%s_tr_index1_23.%s' % (prefix, suffix))
+    savefig('%s_tr_index1_23.%s' % (prefix, suffix))
     return None
 
 if __name__ == '__main__':
