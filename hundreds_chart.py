@@ -3,7 +3,6 @@
 
 # to-do:
 # ------
-# - implement "swtich" that takes a list of numbers and switches them (think 12 -> 112 or the 41 <-> 14 swap)
 
 import matplotlib
 matplotlib.use('Agg')
@@ -40,7 +39,7 @@ def draw_arrow(start, vector, base, index):
                                     ec='none', fc='k', alpha=0.25))
     return None
 
-def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=(0, 0), alpha=1.):
+def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=(0, 0), alpha=1., switch=None):
     for i in range(base):
         for j in range(base):
             if transpose:
@@ -49,6 +48,9 @@ def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shif
                 number = (index + i * base + j)
             if skipzero and number == 0:
                 continue
+            if switch is not None:
+                if number in switch.keys():
+                    number = switch[number]
             label = stringy(number, numberbase)
             if zeropad:
                 if len(label) < 2:
@@ -59,7 +61,7 @@ def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shif
 # some keywords may conflict
 def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
                    zeroear=False, arrow=[], tileright=False,
-                   skipzero=False, transpose=False):
+                   skipzero=False, transpose=False, switch=None):
     assert((zeroear is False) or (tileright is False))
     base = chartbase
     xlim = np.array([-0.5, base - 0.5])
@@ -82,7 +84,7 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
     ax.set_position([0.01, 0.01, 0.98, 0.98])
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
-    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose)
+    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, switch=switch)
     if tileright:
         shift = np.array((10, -1))
         draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=shift, alpha=0.5)
@@ -157,6 +159,12 @@ def main():
     savefig('%s_16x16_base16.%s' % (prefix, suffix))
     hundreds_chart(chartbase=7)
     savefig('%s_7x7_base10.%s' % (prefix, suffix))
+    hundreds_chart(switch={14: 41, 41: 14})
+    savefig('%s_swap14.%s' % (prefix, suffix))
+    hundreds_chart(switch={0: 100})
+    savefig('%s_day100.%s' % (prefix, suffix))
+    hundreds_chart(switch=dict([(i, i+100) for i in range(15)]))
+    savefig('%s_day114.%s' % (prefix, suffix))
 
     # charts not yet used in document
     hundreds_chart(zeroear=True)
