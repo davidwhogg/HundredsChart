@@ -3,10 +3,9 @@
 
 % to-do:
 % ------
-% - the point that it should count UP FROM THE BOTTOM, so ``up'' is ``larger'' like with floors in a building
 % - expand last section into real paragraphs
 
-\documentclass[12pt]{article}
+\documentclass[12pt,pdftex]{article}
 \usepackage{graphicx}
 \newcommand{\tablesize}{\footnotesize\sffamily}
 \newcommand{\showchart}[1]{\includegraphics[scale=0.67]{#1}}
@@ -117,17 +116,21 @@ bottom circle!
 
 \paragraph{Notes for the next draft of this document:}
 Vectors of constant length and direction shifted around the chart
-provide consistent differences [to demonstrate this graphically I need
-  to make the hundreds charts in a plotting program].  This works for
-1-indexed charts too.
+provide consistent differences, like this:
+\begin{center}
+\showchart{hundreds_chart_tr_23.pdf}
+\end{center}
+This works for 1-indexed charts too.  Along these lines, any triangle
+on the chart represents a triplet of integers that sum to zero.  Any
+$n$-sided polygon represents a set of $n$ integers that sum to zero.
 
 Vectors coming from zero lead to multiplication tables, especially if
 you think of the full two-dimensional plane as being tiled with charts
 to the right, and in charts incremented by 100 going down.  This also
-works for 1-indexed charts, as long as you make the vectors come from
-the fictitious zero position.  That said, the zero-indexed chart is
-nice here, because factors of 9 and 11 can be read off the chart's two
-major diagonals.
+works for 1-indexed charts, as long as (once again) you make the
+vectors come from the fictitious zero position.  That said, the
+zero-indexed chart is nice here, because factors of 9 and 11 can be
+read off the chart's two major diagonals.
 
 These vector realizations work for any kind of chart, even ones that
 aren't multiples of ten on each side, such as:
@@ -138,6 +141,13 @@ And just as the $10\times 10$ chart has factors of 10 down the left,
 and factors of 9 and 11 down the two diagonals, this chart has factors
 of 7 down the left and factors of 6 and 8 down the diagonals.
 
+The tilling of two-dimensional space with hundreds charts---which we
+used to demonstrate vector properties---really shows that the chart
+lives on a one-torus or cylinder, with the number line wrapped around
+it in a helix of slope $1/10$ (or $1/N$ for base $N$).
+
+You can go into negative-number territory if you are brave.
+
 The chart is all about integers so far, but it can be generalized to
 real numbers.  Just as the number 23 is plotted at $(x,y) = (3,2)$,
 the number 23.743319 can be plotted at $(x,y) = (3.439, 2.731)$.
@@ -145,5 +155,17 @@ the number 23.743319 can be plotted at $(x,y) = (3.439, 2.731)$.
 representation (or any other base $N$ for an $N\times N$ chart) and
 then make the two numbers you get by taking every second digit from
 the representation.  [Find out what this is called.]
+
+Generalizing this further, the chart can be rearranged into a
+fractal-like space-filling curve, as in my blog post on hoggmaker.
+This leads to various interesting properties for any chart that is
+$2^n\times 2^n$ for some integer $n$.  You lose the vector-space
+properties, but you gain locality.  That is, it makes the chart
+useless for primary education, but way cool!
+
+Really---and I should put this ealier---the chart should count up from
+the bottom, so ``up'' is ``larger'' like with floors in a building.  J
+points out that this is particularly important for subtraction, when
+you say to a child ``now go down by ten'' for ``subtract ten''.
 
 \end{document}
