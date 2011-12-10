@@ -39,8 +39,10 @@ def draw_arrow(start, vector, base, index):
                                     ec='none', fc='k', alpha=0.25))
     return None
 
-def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=(0, 0), alpha=1., switch=None):
-    for i in range(base):
+def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=(0, 0),
+                     alpha=1., switch=None, lee=1):
+    irange = range(lee * base)
+    for i in irange:
         for j in range(base):
             if transpose:
                 number = (index + j * base + i)
@@ -61,7 +63,8 @@ def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shif
 # some keywords may conflict
 def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
                    zeroear=False, arrow=[], tileright=False,
-                   skipzero=False, transpose=False, switch=None):
+                   skipzero=False, transpose=False, switch=None,
+                   bottomup=False, lee=1):
     assert((zeroear is False) or (tileright is False))
     base = chartbase
     xlim = np.array([-0.5, base - 0.5])
@@ -74,8 +77,12 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
             xlim += np.array([-1., 0.])
             ylim += np.array([0., -1.])
     if tileright:
-            xlim += np.array([0., 10.])
-            ylim += np.array([0., -1.])
+        xlim += np.array([0., base])
+        ylim += np.array([0., -1.])
+    if lee > 1:
+        ylim += np.array([(lee - 1) * base, 0.])
+    if bottomup:
+        ylim = ylim[::-1]
     plt.figure(figsize=(0.35 * np.abs(xlim[1] - xlim[0]),
                         0.35 * np.abs(ylim[1] - ylim[0])))
     plt.clf()
@@ -84,10 +91,10 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
     ax.set_position([0.01, 0.01, 0.98, 0.98])
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
-    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, switch=switch)
+    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, switch=switch, lee=lee)
     if tileright:
         shift = np.array((10, -1))
-        draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=shift, alpha=0.5)
+        draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=shift, alpha=0.5, lee=lee)
     zero1 = np.array((0, 0))
     if index == 1:
         zero1 = None
@@ -165,24 +172,20 @@ def main():
     savefig('%s_day100.%s' % (prefix, suffix))
     hundreds_chart(switch=dict([(i, i+100) for i in range(15)]))
     savefig('%s_day114.%s' % (prefix, suffix))
-
-    # charts not yet used in document
-    hundreds_chart(zeroear=True)
-    savefig('%s_ze.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True, index=1)
-    savefig('%s_ze_index1.%s' % (prefix, suffix))
-    hundreds_chart(arrow=[(0, 23), (64, 87)])
-    savefig('%s_23.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True, arrow=[(0, 23), (64, 87), (28, 51)])
-    savefig('%s_ze_23.%s' % (prefix, suffix))
-    hundreds_chart(zeroear=True, arrow=[(0, 23), (64, 87), (28, 51)], index=1)
-    savefig('%s_ze_index1_23.%s' % (prefix, suffix))
-    hundreds_chart(tileright=True)
-    savefig('%s_tr.%s' % (prefix, suffix))
     hundreds_chart(tileright=True, arrow=[(0, 23), (64, 87), (28, 51)])
     savefig('%s_tr_23.%s' % (prefix, suffix))
-    hundreds_chart(tileright=True, arrow=[(0, 23), (64, 87), (28, 51)], index=1)
-    savefig('%s_tr_index1_23.%s' % (prefix, suffix))
+    hundreds_chart(arrow=[(64, 87), (87, 58), (58, 64)])
+    savefig('%s_triangle.%s' % (prefix, suffix))
+    hundreds_chart(bottomup=True)
+    savefig('%s_bottomup.%s' % (prefix, suffix))
+    hundreds_chart(tileright=True, arrow=[(i, i+13) for i in range(0,100,13)])
+    savefig('%s_tr_13s.%s' % (prefix, suffix))
+    hundreds_chart(tileright=True, index=1, arrow=[(i, i+13) for i in range(0,100,13)])
+    savefig('%s_tr_index1_13s.%s' % (prefix, suffix))
+
+    # charts not yet used in document
+    # hundreds_chart(index=1, lee=10)
+    # savefig('%s_index1_lee.%s' % (prefix, suffix))
     return None
 
 if __name__ == '__main__':

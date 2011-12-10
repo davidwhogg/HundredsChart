@@ -14,7 +14,7 @@
 \subsection*{The hundreds chart}
 
 \noindent
-\textsl{by David W. Hogg, New York City, 2011 July 30}
+\textsl{by David W. Hogg, New York City, 2011 December 10}
 \vspace{1ex}
 
 In kindergarten, V wasn't showing a lot of interest in math, but she
@@ -114,39 +114,87 @@ upside-down as you do it.  On V's chart you can only find it by
 noticing that the top circle on the ``8'' is slightly smaller than the
 bottom circle!
 
-\paragraph{Notes for the next draft of this document:}
-Vectors of constant length and direction shifted around the chart
+The chart is mainly and usually used for teaching; in particular it
+helps students get used to the numbers and their relationships; it is
+really a ``wrapped'' number line.  Because of the regularity with
+which the number line has been wrapped onto the chart, two-dimensional
+vectors of constant length and direction shifted around the chart
 provide consistent differences, like this:
 \begin{center}
 \showchart{hundreds_chart_tr_23.pdf}
 \end{center}
-This works for 1-indexed charts too.  Along these lines, any triangle
-on the chart represents a triplet of integers that sum to zero.  Any
-$n$-sided polygon represents a set of $n$ integers that sum to zero.
+Here I have shown two different kinds of vectors that correspond to
+differences of 23, and I have shown the ``shadow'' chart that lies,
+implicitly, to the right of the main chart.  That is, I have continued
+the chart to the right artificially to make the relationship of the
+two 23 vectors somehow more clear.  For any number difference there
+are always two sensible arrows to draw, one going rightward and one
+going leftward (and many more than two if you are willing to fully
+tile the two-dimensional plane).
+
+The fact that this tiling is useful---the fact that you go infinitely
+far in the horizontal direction either way with hundreds
+charts---shows that really the chart doesn't live in the plane; it
+lives on a one-torus or cylinder: If you go far enough to the right or
+left, you return to where you started, but one row down or up.  That
+is, the chart really lives on a cylinder, and the cylinder has a
+number line wrapped around it in a helix of slope $1/10$ (or $1/N$ for
+base $N$).
+
+But back to vectors: Any triangle on the chart represents a triplet of
+integers that sum to zero.
+\begin{center}
+\showchart{hundreds_chart_triangle.pdf}
+\end{center}
+This triangle (above) represents the relationship $23-29+6=0$.  More
+generally, any $n$-sided polygon represents a set of $n$ integers that
+sum to zero.  This kind of arithmetic has the strange property that
+(for some, anyway), vector addition can be used to help with integer
+addition; most conventional thought would put these mathematical
+subjects in the opposite order!
+
+In this pedagaogical spirit, really---and I should have put this
+ealier---the chart should count up from the bottom, so ``up'' is
+``larger'' like with floors in a building.
+\begin{center}
+\showchart{hundreds_chart_bottomup.pdf}
+\end{center}
+J points out that this is particularly important when the chart is
+used to teach or help support subtraction: You often find yourself
+saying to a child ``now go down by ten'' for ``subtract ten''; that's
+pretty confusing when ``down'' is ``up''.
 
 Vectors coming from zero lead to multiplication tables, especially if
-you think of the full two-dimensional plane as being tiled with charts
-to the right, and in charts incremented by 100 going down.  This also
-works for 1-indexed charts, as long as (once again) you make the
-vectors come from the fictitious zero position.  That said, the
-zero-indexed chart is nice here, because factors of 9 and 11 can be
-read off the chart's two major diagonals.
+(once again) you think of the full two-dimensional plane as being
+tiled with charts to the right.  Here are is the 13 times table:
+\begin{center}
+\showchart{hundreds_chart_tr_13s.pdf}
+\end{center}
+The easiest way to see these
+multiplications is to have a zero-indexed chart (my preference),
+however this all also works for 1-indexed charts, as long as you make
+the vectors come from the fictitious zero position, which lies just
+above the 10.
+\begin{center}
+\showchart{hundreds_chart_tr_index1_13s.pdf}
+\end{center}
 
-These vector realizations work for any kind of chart, even ones that
-aren't multiples of ten on each side, such as:
+Another respect in which the symmetry of the zero-indexed chart is
+nicer---related to multiplication---is that factors of 9 and 11 can be
+read off the chart's two major diagonals.  The diagonals are
+interesting on any any kind of zero-indexed chart, even ones that
+aren't $10\times 10$ (or $N\times N$ for base $N$):
 \begin{center}
 \showchart{hundreds_chart_7x7_base10.pdf}
 \end{center}
-And just as the $10\times 10$ chart has factors of 10 down the left,
-and factors of 9 and 11 down the two diagonals, this chart has factors
-of 7 down the left and factors of 6 and 8 down the diagonals.
+Just as the $10\times 10$ chart has factors of 10 down the left, and
+factors of 9 and 11 down the two diagonals, this $7\times 7$ chart
+(above) has factors of 7 down the left and factors of 6 and 8 down the
+diagonals.
 
-The tiling of two-dimensional space with hundreds charts---which we
-used to demonstrate vector properties---really shows that the chart
-lives on a one-torus or cylinder, with the number line wrapped around
-it in a helix of slope $1/10$ (or $1/N$ for base $N$).
-
-You can go into negative-number territory if you are brave.
+\paragraph{Notes for the next draft of this document:}
+You can go above 100.  You can go into negative-number territory if
+you are brave!
 
 The chart is all about integers so far, but it can be generalized to
 real numbers.  Just as the number 23 is plotted at $(x,y) = (3,2)$,
@@ -162,10 +210,5 @@ This leads to various interesting properties for any chart that is
 $2^n\times 2^n$ for some integer $n$.  You lose the vector-space
 properties, but you gain locality.  That is, it makes the chart
 useless for primary education, but way cool!
-
-Really---and I should put this ealier---the chart should count up from
-the bottom, so ``up'' is ``larger'' like with floors in a building.  J
-points out that this is particularly important for subtraction, when
-you say to a child ``now go down by ten'' for ``subtract ten''.
 
 \end{document}
