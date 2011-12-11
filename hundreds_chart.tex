@@ -3,7 +3,9 @@
 
 % to-do:
 % ------
-% - expand last section into real paragraphs
+% - More subjects to discuss:
+%   - You can go above 100.
+%   - You can go into negative-number territory if you are brave!
 
 \documentclass[12pt,pdftex]{article}
 \usepackage{graphicx}
@@ -14,17 +16,17 @@
 \subsection*{The hundreds chart}
 
 \noindent
-\textsl{by David W. Hogg, New York City, 2011 December 10}
+\textsl{by David W. Hogg, New York City, 2011 December 11}
 \vspace{1ex}
 
 In kindergarten, V wasn't showing a lot of interest in math, but she
 was showing a lot of interest in ``playing school'' at home.  J had
 the brilliant insight that all V needed was a hundreds chart like her
 teacher Emily's.  It worked like a charm; V became much more
-interested in math overnight and does math problems and notices
-patterns in the chart voluntarily and without any prompting from us.
-But \emph{I} also came to love the chart.  Here I set down a few
-little thoughts about it.
+interested in math overnight.  She started spontaneously doing math
+problems and started noticing patterns in the chart without any
+prompting from us.  But \emph{I} also came to love the chart.  Here I
+set down a few thoughts about it.
 
 Here's the way the usual hundreds chart is arranged in most
 classrooms:
@@ -154,15 +156,18 @@ addition; most conventional thought would put these mathematical
 subjects in the opposite order!
 
 In this pedagaogical spirit, really---and I should have put this
-ealier---the chart should count up from the bottom, so ``up'' is
-``larger'' like with floors in a building.
+ealier---the chart perhaps should count up from the bottom, so ``up''
+is ``larger'' like with floors in a building.
 \begin{center}
 \showchart{hundreds_chart_bottomup.pdf}
 \end{center}
 J points out that this is particularly important when the chart is
 used to teach or help support subtraction: You often find yourself
 saying to a child ``now go down by ten'' for ``subtract ten''; that's
-pretty confusing when ``down'' is ``up''.
+pretty confusing when ``down'' is ``up''.  Going against this thought
+is the point that the hundreds chart lives in a classroom where the
+students are \emph{also} learning their reading and writing skills; we
+read (English) \emph{down} the page.
 
 Vectors coming from zero lead to multiplication tables, especially if
 (once again) you think of the full two-dimensional plane as being
@@ -192,23 +197,45 @@ factors of 9 and 11 down the two diagonals, this $7\times 7$ chart
 (above) has factors of 7 down the left and factors of 6 and 8 down the
 diagonals.
 
-\paragraph{Notes for the next draft of this document:}
-You can go above 100.  You can go into negative-number territory if
-you are brave!
+The chart has been all about integers so far, but it can be
+generalized to real numbers.  Just as the number 23 is plotted at
+$(x,y) = (3,2)$, the number 23.743319 can be plotted at $(x,y) =
+(3.439, 2.731)$, where we made the $x$ coordinate by taking the ones,
+hundredths, ten-thousandths, and millionths places and collapsing them
+into a new decimal number, and we made the $y$ coordinate by taking
+the tens, tenths, thousandths, and hundred-thousandths places.  Here
+is that location (marked ``$\mathbf Q$'') plotted on top of a standard chart:
+\begin{center}
+\showchart{hundreds_chart_Q.pdf}
+\end{center}
+In general the idea is to write the number in the current
+representation (base $10$ in this case) and then make the two numbers
+you get by taking every second digit from the representation.  This is
+the simplest example of a mapping from the real number line (a
+one-dimensional object) to the plane (a two-dimensional object).  This
+mapping has the beautiful property that all of the vector addition
+properties mentioned above work for real numbers just as well as they
+do for the integers.
 
-The chart is all about integers so far, but it can be generalized to
-real numbers.  Just as the number 23 is plotted at $(x,y) = (3,2)$,
-the number 23.743319 can be plotted at $(x,y) = (3.439, 2.731)$.
-[Make a figure of this.]  The idea is to put the number in decimal
-representation (or any other base $N$ for an $N\times N$ chart) and
-then make the two numbers you get by taking every second digit from
-the representation.  [Find out what this is called.]
-
-Generalizing this further, the chart can be rearranged into a
-fractal-like space-filling curve, as in my blog post on hoggmaker.
-This leads to various interesting properties for any chart that is
-$2^n\times 2^n$ for some integer $n$.  You lose the vector-space
-properties, but you gain locality.  That is, it makes the chart
+There are many such mappings; the standard chart is just one example of
+an enormous class of mappings from one dimension to two.  For example,
+the chart can be rearranged to represent a fractal-like space-filling
+curve.  For the simplest space-filling curve I know, it makes sense to
+do a $2^n\times 2^n$ chart, like this $8\times 8$ chart (still in
+base-10 numbers though):
+\begin{center}
+\showchart{hundreds_chart_8x8_base10_sfc.pdf}
+\end{center}
+Here is a bigger space-filling curve chart in hexadecimal:
+\begin{center}
+\showchart{hundreds_chart_16x16_base16_sfc.pdf}
+\end{center}
+These space-filling curve charts have very interesting properties;
+they don't have the vector-space properties we used above to show
+addition and multiplication, but they have the local property that
+nearby numbers are guaranteed to be nearby, which is not true in the
+standard chart (think the separation of 39 and 41 on the standard
+$10\times 10$ chart).  Space-filling makes the chart (probably)
 useless for primary education, but way cool!
 
 \end{document}

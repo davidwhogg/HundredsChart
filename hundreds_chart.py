@@ -9,6 +9,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrow
 import numpy as np
+import space_filling_curve as sfc
 
 prefix = 'hundreds_chart'
 suffix = 'pdf'
@@ -39,9 +40,12 @@ def draw_arrow(start, vector, base, index):
                                     ec='none', fc='k', alpha=0.25))
     return None
 
-def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=(0, 0),
-                     alpha=1., switch=None, lee=1):
+def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, alpha, shift=(0, 0),
+                     switch=None, lee=1, spacefill=False):
     irange = range(lee * base)
+    if spacefill:
+        oldx = []
+        oldy = []
     for i in irange:
         for j in range(base):
             if transpose:
@@ -57,14 +61,21 @@ def draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shif
             if zeropad:
                 if len(label) < 2:
                     label = '0' + label
-            draw_number(j + shift[0], i + shift[1], label, alpha=alpha)
+            x, y = j + shift[0], i + shift[1]
+            if spacefill:
+                x, y = sfc.number2position(number)
+                oldx.append(x)
+                oldy.append(y)
+            draw_number(x, y, label, alpha=alpha)
+    if spacefill:
+        plt.plot(oldx, oldy, 'k-', lw=4, alpha=0.25)
     return None
 
 # some keywords may conflict
 def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
                    zeroear=False, arrow=[], tileright=False,
                    skipzero=False, transpose=False, switch=None,
-                   bottomup=False, lee=1):
+                   bottomup=False, lee=1, spacefill=False, realnumber=False):
     assert((zeroear is False) or (tileright is False))
     base = chartbase
     xlim = np.array([-0.5, base - 0.5])
@@ -91,10 +102,15 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
     ax.set_position([0.01, 0.01, 0.98, 0.98])
     ax.get_xaxis().set_visible(False)
     ax.get_yaxis().set_visible(False)
-    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, switch=switch, lee=lee)
+    alpha = 1.
+    if realnumber:
+        alpha = 0.5
+    draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, alpha, switch=switch, lee=lee, spacefill=spacefill)
+    if realnumber:
+        draw_number(3.439, 2.731, r'$\bf Q$', alpha=1.)
     if tileright:
         shift = np.array((10, -1))
-        draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, shift=shift, alpha=0.5, lee=lee)
+        draw_number_grid(base, numberbase, index, zeropad, skipzero, transpose, 0.5, shift=shift)
     zero1 = np.array((0, 0))
     if index == 1:
         zero1 = None
@@ -182,6 +198,12 @@ def main():
     savefig('%s_tr_13s.%s' % (prefix, suffix))
     hundreds_chart(tileright=True, index=1, arrow=[(i, i+13) for i in range(0,100,13)])
     savefig('%s_tr_index1_13s.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=16, numberbase=16, spacefill=True)
+    savefig('%s_16x16_base16_sfc.%s' % (prefix, suffix))
+    hundreds_chart(chartbase=8, numberbase=10, spacefill=True)
+    savefig('%s_8x8_base10_sfc.%s' % (prefix, suffix))
+    hundreds_chart(realnumber=True)
+    savefig('%s_Q.%s' % (prefix, suffix))
 
     # charts not yet used in document
     # hundreds_chart(index=1, lee=10)
