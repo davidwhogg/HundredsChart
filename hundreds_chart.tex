@@ -16,7 +16,7 @@
 \subsection*{The hundreds chart}
 
 \noindent
-\textsl{by David W. Hogg, New York City, 2011 December 11}
+\textsl{by David W. Hogg, New York City, 2011 December 12}
 \vspace{1ex}
 
 In kindergarten, V wasn't showing a lot of interest in math, but she
@@ -82,13 +82,21 @@ On the 114th day, it could look like this:
 \showchart{hundreds_chart_day114.pdf}
 \end{center}
 
+All this said, the difference between a one-indexed chart and a
+zero-indexed chart is not large; educators differ on the subject.  (J
+and Emily have pointed me to some educational literature on the issue
+of zero-indexing, but I haven't read it yet!)  My preference for the
+zero-indexed chart comes not from a pedagogical position but rather is
+related to my personal context of loving math, and doing math (or
+science and engineering really) as my job.  In what follows, I will
+use the zero-indexed chart as the default for these reasons.
+
 Going back to the basic hundreds chart, to wit:
 \begin{center}
 \showchart{hundreds_chart_default.pdf}
 \end{center}
-as a computer scientist (in part) I can't help notice that the
-top-left $2\times 2$, $3\times 3$, and $4\times 4$ blocks of the
-chart look like this:
+as a computer geek, I can't help notice that the top-left $2\times 2$,
+$3\times 3$, and $4\times 4$ blocks of the chart look like this:
 \begin{center}
 \showchart{hundreds_chart_2x2_base2.pdf}
 \quad
@@ -185,17 +193,17 @@ above the 10.
 \end{center}
 
 Another respect in which the symmetry of the zero-indexed chart is
-nicer---related to multiplication---is that factors of 9 and 11 can be
-read off the chart's two major diagonals.  The diagonals are
-interesting on any any kind of zero-indexed chart, even ones that
-aren't $10\times 10$ (or $N\times N$ for base $N$):
+nicer than the one-indexed chart---related to multiplication---is that
+factors of 9 and 11 can be read off the chart's two major diagonals.
+The diagonals are interesting on any any kind of zero-indexed chart,
+even ones that aren't $10\times 10$ (or $N\times N$ for base $N$):
 \begin{center}
 \showchart{hundreds_chart_7x7_base10.pdf}
 \end{center}
 Just as the $10\times 10$ chart has factors of 10 down the left, and
 factors of 9 and 11 down the two diagonals, this $7\times 7$ chart
-(above) has factors of 7 down the left and factors of 6 and 8 down the
-diagonals.
+(above, showing base-$10$ numbers) has factors of 7 down the
+left and factors of 6 and 8 down the diagonals.
 
 The chart has been all about integers so far, but it can be
 generalized to real numbers.  Just as the number 23 is plotted at
