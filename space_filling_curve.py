@@ -12,8 +12,8 @@ def trigfunctions(orientation):
 def number2digitlist(n, length=4, base=4):
     return [(n / base**p) % base for p in range(length)[::-1]]
 
-def number2position(n):
-    return digitlist2position(number2digitlist(n))
+def number2position(n, length=4):
+    return digitlist2position(number2digitlist(n, length=length, base=4))
 
 def digitlist2position(digitlist):
     nlevel = len(digitlist)
