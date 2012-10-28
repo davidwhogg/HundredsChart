@@ -2,14 +2,14 @@
 RM = /bin/rm -fv
 PDFLATEX = pdflatex
 
-all: against_school.pdf hundreds_chart.pdf
+all: hundreds_chart.pdf
 
 hundreds_chart.pdf: hundreds_chart_default.pdf
 
 hundreds_chart_default.pdf: hundreds_chart.py
 	python hundreds_chart.py
 
-%.pdf: %.tex hogg_book.tex
+%.pdf: %.tex
 	$(PDFLATEX) $*
 	$(PDFLATEX) $*
 	$(PDFLATEX) $*

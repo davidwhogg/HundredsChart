@@ -1,5 +1,5 @@
+# This file is part of the Hundreds Chart project.
 # Copyright 2011 David W. Hogg (NYU).
-# All rights reserved.
 
 if __name__ == '__main__':
     import matplotlib
