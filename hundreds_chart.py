@@ -25,7 +25,7 @@ def stringy(number, base):
     if number < base:
         return digit[number]
     else:
-        return stringy(number / base, base) + stringy(number % base, base)
+        return stringy(number // base, base) + stringy(number % base, base)
 
 def draw_number(x, y, label, alpha=1.):
     boxalpha = 0.5 * alpha
@@ -138,15 +138,15 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
             for zero in [zero1, zero2]:
                 if zero is not None:
                     dx = (a[1] % base) - index - zero[0]
-                    dy = ((a[1] - 1) / base) - zero[1]
+                    dy = ((a[1] - 1) // base) - zero[1]
                     draw_arrow(zero, (dx, dy), base, index)
                     if tileright and dx < 0:
                         draw_arrow(zero, np.array((dx, dy)) + shift, base, index)
         else:
             x = (a[0] % base) - index
-            y = ((a[0] - 1) / base)
+            y = ((a[0] - 1) // base)
             dx = (a[1] % base) - index - x
-            dy = ((a[1] - 1) / base) - y
+            dy = ((a[1] - 1) // base) - y
             draw_arrow((x, y), (dx, dy), base, index)
             if tileright and dx < 0:
                 draw_arrow((x, y), np.array((dx, dy)) + shift, base, index)
@@ -156,7 +156,7 @@ def hundreds_chart(chartbase=10, numberbase=10, index=0, zeropad=True,
     return None
 
 def savefig(fn):
-    print 'savefig: writing %s' % fn
+    print('savefig: writing {0}'.format(fn))
     plt.savefig(fn)
     return None
 

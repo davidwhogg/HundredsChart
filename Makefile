@@ -6,7 +6,7 @@ all: hundreds_chart.pdf
 
 hundreds_chart.pdf: hundreds_chart_default.pdf
 
-hundreds_chart_default.pdf: hundreds_chart.py
+hundreds_chart_default.pdf: hundreds_chart.py space_filling_curve.py
 	python hundreds_chart.py
 
 %.pdf: %.tex

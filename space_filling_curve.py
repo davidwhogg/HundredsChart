@@ -10,7 +10,7 @@ def trigfunctions(orientation):
     return ([0, 1, 0, -1])[orientation], ([1, 0, -1, 0])[orientation]
 
 def number2digitlist(n, length=4, base=4):
-    return [(n / base**p) % base for p in range(length)[::-1]]
+    return [(n // base**p) % base for p in range(length)[::-1]]
 
 def number2position(n, length=4):
     return digitlist2position(number2digitlist(n, length=length, base=4))
@@ -23,8 +23,8 @@ def digitlist2position(digitlist):
         parity = -1
         orientation = 1
     sidelength = 2**nlevel
-    xcenter = sidelength / 2 - 0.5
-    ycenter = sidelength / 2 - 0.5
+    xcenter = sidelength / 2. - 0.5
+    ycenter = sidelength / 2. - 0.5
     return digitlist2position_recursive(digitlist, parity, orientation, sidelength, xcenter, ycenter)
 
 def digitlist2position_recursive(digitlist, parity, orientation, sidelength, xcenter, ycenter):
